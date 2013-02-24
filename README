@@ -49,3 +49,15 @@ Configuration
 -------------
 The configuration of dwm is done by creating a custom config.h
 and (re)compiling the source code.
+
+Applied patches
+---------------
+* Single Patch Set
+* Status Colors
+* Status bar padding removed
+* Monocle Count
+* Centered Floating
+* Push
+* Cycle
+* Gapless Grid
+* Pertag
