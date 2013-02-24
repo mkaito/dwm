@@ -265,6 +265,7 @@ static void pushdown(const Arg *arg);
 static void cycle(const Arg *arg);
 static int shifttag(int dist);
 static void tagcycle(const Arg *arg);
+static void gaplessgrid(Monitor *m);
 
 /* variables */
 static const char broken[] = "broken";
@@ -2368,6 +2369,40 @@ tagcycle(const Arg *arg) {
 	const Arg a = { .i = shifttag(arg->i) };
 	tag(&a);
 	view(&a);
+}
+
+void
+gaplessgrid(Monitor *m) {
+	unsigned int n, cols, rows, cn, rn, i, cx, cy, cw, ch;
+	Client *c;
+
+	for(n = 0, c = nexttiled(m->cl->clients, m); c; c = nexttiled(c->next, m), n++);
+	if(n == 0)
+		return;
+
+	/* grid dimensions */
+	for(rows = 0; rows <= n/2; rows++)
+		if(rows*rows >= n)
+			break;
+	if(n == 5) /* set layout against the general calculation: not 1:2:2, but 2:3 */
+		rows = 2;
+	cols = n/rows;
+
+	/* window geometries */
+	ch = rows ? m->wh / rows : m->wh;
+	for(i = cn = rn = 0, c = nexttiled(m->cl->clients, m); c; c = nexttiled(c->next, m), i++) {
+		if(i/cols + 1 > rows - n%rows)
+			cols = n/rows + 1;
+		cw = cols ? m->ww / cols : m->ww;
+		cx = m->wx + cn*cw;
+		cy = m->wy + rn*ch;
+		resize(c, cx, cy, cw - (2*c->bw), ch - (2*c->bw), False);
+		cn++;
+		if(cn >= cols) {
+			cn = 0;
+			rn++;
+		}
+	}
 }
 
 int
