@@ -90,7 +90,7 @@ static const Bool resizehints = True; /* True means respect size hints in tiled 
 
 // Commands
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
-static const char terminal[]				= "urxvtc";
+static const char terminal[]				= "urxvt";
 
 static const char *dmenucmd[]				= { "dmenu_run", "-fn", font, "-nb", colors[0][ColBG], "-nf", colors[0][ColFG], "-sb", colors[1][ColBG], "-sf", colors[1][ColFG], NULL };
 static const char *termcmd[]				= { terminal, NULL };
@@ -114,31 +114,32 @@ static Key keys[] = {
 	/* modifier                     key						function        argument */
 
 	// General apps
-	{ Mod1Mask,                     XK_p,					spawn,           {.v = dmenucmd } },
-	{ MODKEY,                       XK_F1,				spawn,           {.v = termcmd } },
-	{ MODKEY,                       XK_F5,				spawn,						{.v = musiccmd } },
-	{ MODKEY,												XK_r,					spawn,						{.v = filemancmd } },
-	{ MODKEY,												XK_F2,				spawn,						{.v = browsercmd } },
-	{ MODKEY,												XK_F3,				spawn,						{.v = mailcmd } },
-	{ MODKEY,												XK_e,					spawn,						{.v = emacscmd } },
-	{ MODKEY,												XK_q,					spawn,						{.v = remembercmd } },
-	{ MODKEY,												XK_F4,				spawn,						{.v = imcmd } },
+	{ Mod1Mask,                     XK_p,					spawn,          {.v = dmenucmd } },
+	{ MODKEY,                       XK_F1,				spawn,          {.v = termcmd } },
+	{ MODKEY,                       XK_F5,				spawn,					{.v = musiccmd } },
+	{ MODKEY,												XK_r,					spawn,					{.v = filemancmd } },
+	{ MODKEY,												XK_F2,				spawn,					{.v = browsercmd } },
+	{ MODKEY,												XK_F3,				spawn,					{.v = mailcmd } },
+	{ MODKEY,												XK_e,					spawn,					{.v = emacscmd } },
+	{ MODKEY,												XK_q,					spawn,					{.v = remembercmd } },
+	{ MODKEY,												XK_F4,				spawn,					{.v = imcmd } },
 
 	// Games
-	{ MODKEY,												XK_F11,				spawn,						SHCMD("~/dev/bin/sc2") },
+	{ MODKEY,												XK_F11,				spawn,					SHCMD("~/dev/bin/sc2") },
+	{ MODKEY,												XK_F12,				spawn,					SHCMD("~/dev/bin/eve") },
 
 	// Media keys
-	{ 0,														0x1008ff12,		spawn,						{.v = volmcmd } },
-	{ 0,														0x1008ff11,		spawn,						{.v = voldcmd } },
-	{ 0,														0x1008ff13,		spawn,						{.v = volucmd } },
-	{ 0,														0x1008ff14,		spawn,						{.v = mpdtogglecmd } },
-	{ 0,														0x1008ff15,		spawn,						{.v = mpdstopcmd } },
-	{ 0,														0x1008ff16,		spawn,						{.v = mpdprevcmd } },
-	{ 0,														0x1008ff17,		spawn,						{.v = mpdnextcmd } },
-	{ 0,														XK_Print,			spawn,						{.v = screenshotcmd } },
+	{ 0,														0x1008ff12,		spawn,					{.v = volmcmd } },
+	{ 0,														0x1008ff11,		spawn,					{.v = voldcmd } },
+	{ 0,														0x1008ff13,		spawn,					{.v = volucmd } },
+	{ 0,														0x1008ff14,		spawn,					{.v = mpdtogglecmd } },
+	{ 0,														0x1008ff15,		spawn,					{.v = mpdstopcmd } },
+	{ 0,														0x1008ff16,		spawn,					{.v = mpdprevcmd } },
+	{ 0,														0x1008ff17,		spawn,					{.v = mpdnextcmd } },
+	{ 0,														XK_Print,			spawn,					{.v = screenshotcmd } },
 
 	// WM Stuff
-	{ MODKEY,                       XK_b,					togglebar,				{0} },
+	{ MODKEY,                       XK_b,					togglebar,			{0} },
 	{ MODKEY,                       XK_j,					focusstack,			{.i = +1 } },
 	{ MODKEY,                       XK_k,					focusstack,			{.i = -1 } },
 
