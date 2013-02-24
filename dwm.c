@@ -1665,7 +1665,7 @@ setup(void) {
 	initfont(font);
 	sw = DisplayWidth(dpy, screen);
 	sh = DisplayHeight(dpy, screen);
-	bh = dc.h = dc.font.height + 2;
+	bh = dc.h = dc.font.height;
 	if(!(cl = (Clientlist *)calloc(1, sizeof(Clientlist))))
 		die("fatal: could not malloc() %u bytes\n", sizeof(Clientlist));
 	updategeom();
