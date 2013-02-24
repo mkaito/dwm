@@ -31,8 +31,28 @@ static const unsigned int snap      = 32;       /* snap pixel */
 static const Bool showbar           = True;     /* False means no bar */
 static const Bool topbar            = True;     /* False means bottom bar */
 
+static const Layout layouts[] = {
+	/* symbol     arrange function */
+	{ "[]=",      tile },    /* first entry is default */
+	{ "><>",      NULL },    /* no layout function means floating behavior */
+	{ "[M]",      monocle },
+	{ "[G]",      gaplessgrid },
+	{ "[B]",      bstack },
+};
+
 /* tagging */
-static const char *tags[] = { "term", "code", "web", "IM", "Gaming", "aux", "aux", "Media", "float" };
+//static const char *tags[] = { "term", "code", "web", "IM", "Gaming", "aux", "aux", "Media", "float" };
+static const Tag tags[] = {
+	//name			layout				mfact nmaster
+	{ "term",		&layouts[4],	-1,		-1 },
+	{ "code",		&layouts[4],	-1,		-1 },
+	{ "web",		&layouts[1],	-1,		-1 },
+	{ "IM",			&layouts[4],	-1,		-1 },
+	{ "gaming", &layouts[1],	-1,		-1 },
+	{ "aux",		&layouts[4],	-1,		-1 },
+	{ "media",	&layouts[1],	-1,		-1 },
+	{ "float",	&layouts[2],	-1,		-1 },
+};
 
 static const Rule rules[] = {
 	//class						instance			title				tags mask		isfloating	iscentred		monitor
@@ -59,14 +79,6 @@ static const Rule rules[] = {
 static const float mfact      = 0.55; /* factor of master area size [0.05..0.95] */
 static const int nmaster      = 1;    /* number of clients in master area */
 static const Bool resizehints = True; /* True means respect size hints in tiled resizals */
-
-static const Layout layouts[] = {
-	/* symbol     arrange function */
-	{ "[]=",      tile },    /* first entry is default */
-	{ "><>",      NULL },    /* no layout function means floating behavior */
-	{ "[M]",      monocle },
-	{ "[G]",      gaplessgrid },
-};
 
 /* key definitions */
 #define MODKEY Mod4Mask
