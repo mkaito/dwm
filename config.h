@@ -98,56 +98,66 @@ static const char *mpdnextcmd[]			= { "ncmpcpp", "next", NULL };
 static const char *screenshotcmd[]	= { "scrot", "-q", "100", "-e", "mv $f ~/screenshots/ 2>/dev/null", NULL };
 
 static Key keys[] = {
-	/* modifier                     key					 function        argument */
+	/* modifier                     key						function        argument */
 
 	// General apps
-	{ Mod1Mask,                     XK_p,				 spawn,           {.v = dmenucmd } },
-	{ MODKEY,                       XK_F1,			 spawn,           {.v = termcmd } },
-	{ MODKEY,                       XK_F5,			 spawn,						{.v = musiccmd } },
-	{ MODKEY,												XK_r,				 spawn,						{.v = filemancmd } },
-	{ MODKEY,												XK_F2,			 spawn,						{.v = browsercmd } },
-	{ MODKEY,												XK_F3,			 spawn,						{.v = mailcmd } },
-	{ MODKEY,												XK_e,				 spawn,						{.v = emacscmd } },
-	{ MODKEY,												XK_q,				 spawn,						{.v = remembercmd } },
-	{ MODKEY,												XK_F4,			 spawn,						{.v = imcmd } },
+	{ Mod1Mask,                     XK_p,					spawn,           {.v = dmenucmd } },
+	{ MODKEY,                       XK_F1,				spawn,           {.v = termcmd } },
+	{ MODKEY,                       XK_F5,				spawn,						{.v = musiccmd } },
+	{ MODKEY,												XK_r,					spawn,						{.v = filemancmd } },
+	{ MODKEY,												XK_F2,				spawn,						{.v = browsercmd } },
+	{ MODKEY,												XK_F3,				spawn,						{.v = mailcmd } },
+	{ MODKEY,												XK_e,					spawn,						{.v = emacscmd } },
+	{ MODKEY,												XK_q,					spawn,						{.v = remembercmd } },
+	{ MODKEY,												XK_F4,				spawn,						{.v = imcmd } },
 
 	// Games
-	{ MODKEY,												XK_F11,			 spawn,						SHCMD("~/dev/bin/sc2") },
+	{ MODKEY,												XK_F11,				spawn,						SHCMD("~/dev/bin/sc2") },
 
 	// Media keys
-	{ 0,														0x1008ff12,	 spawn,						{.v = volmcmd } },
-	{ 0,														0x1008ff11,	 spawn,						{.v = voldcmd } },
-	{ 0,														0x1008ff13,  spawn,						{.v = volucmd } },
-	{ 0,														0x1008ff14,	 spawn,						{.v = mpdtogglecmd } },
-	{ 0,														0x1008ff15,	 spawn,						{.v = mpdstopcmd } },
-	{ 0,														0x1008ff16,	 spawn,						{.v = mpdprevcmd } },
-	{ 0,														0x1008ff17,	 spawn,						{.v = mpdnextcmd } },
-	{ 0,														XK_Print,		 spawn,						{.v = screenshotcmd } },
+	{ 0,														0x1008ff12,		spawn,						{.v = volmcmd } },
+	{ 0,														0x1008ff11,		spawn,						{.v = voldcmd } },
+	{ 0,														0x1008ff13,		spawn,						{.v = volucmd } },
+	{ 0,														0x1008ff14,		spawn,						{.v = mpdtogglecmd } },
+	{ 0,														0x1008ff15,		spawn,						{.v = mpdstopcmd } },
+	{ 0,														0x1008ff16,		spawn,						{.v = mpdprevcmd } },
+	{ 0,														0x1008ff17,		spawn,						{.v = mpdnextcmd } },
+	{ 0,														XK_Print,			spawn,						{.v = screenshotcmd } },
 
 	// WM Stuff
-	{ MODKEY,                       XK_b,				 togglebar,				{0} },
-	{ MODKEY,                       XK_j,				 focusstack,			{.i = +1 } },
-	{ MODKEY,                       XK_k,				 focusstack,			{.i = -1 } },
-	{ MODKEY|ShiftMask,							XK_j,				 pushdown,				{0} },
-	{ MODKEY|ShiftMask,							XK_k,				 pushup,					{0} },
-	{ MODKEY,                       XK_i,				 incnmaster,			{.i = +1 } },
-	{ MODKEY,                       XK_d,				 incnmaster,			{.i = -1 } },
-	{ MODKEY,                       XK_h,				 setmfact,				{.f = -0.05} },
-	{ MODKEY,                       XK_l,				 setmfact,				{.f = +0.05} },
-	{ MODKEY,                       XK_Return,	 zoom,						{0} },
-	{ MODKEY,                       XK_Tab,			 view,						{0} },
-	{ MODKEY,                       XK_Escape,	 killclient,			{0} },
-	{ MODKEY,                       XK_t,				 setlayout,				{.v = &layouts[0]} },
-	{ MODKEY,                       XK_f,				 setlayout,				{.v = &layouts[1]} },
-	{ MODKEY,                       XK_m,				 setlayout,				{.v = &layouts[2]} },
-	{ MODKEY,                       XK_space,		 setlayout,				{0} },
-	{ MODKEY|ShiftMask,             XK_space,		 togglefloating,	{0} },
-	{ MODKEY,                       XK_0,				 view,						{.ui = ~0 } },
-	{ MODKEY|ShiftMask,             XK_0,				 tag,							{.ui = ~0 } },
-	{ MODKEY,                       XK_comma,		 focusmon,				{.i = -1 } },
-	{ MODKEY,                       XK_period,	 focusmon,				{.i = +1 } },
-	{ MODKEY|ShiftMask,             XK_comma,		 tagmon,					{.i = -1 } },
-	{ MODKEY|ShiftMask,             XK_period,	 tagmon,					{.i = +1 } },
+	{ MODKEY,                       XK_b,					togglebar,				{0} },
+	{ MODKEY,                       XK_j,					focusstack,			{.i = +1 } },
+	{ MODKEY,                       XK_k,					focusstack,			{.i = -1 } },
+
+	// patch: push
+	{ MODKEY|ShiftMask,							XK_j,					pushdown,				{0} },
+	{ MODKEY|ShiftMask,							XK_k,					pushup,					{0} },
+
+	{ MODKEY,                       XK_i,					incnmaster,			{.i = +1 } },
+	{ MODKEY,                       XK_d,					incnmaster,			{.i = -1 } },
+	{ MODKEY,                       XK_h,					setmfact,				{.f = -0.05} },
+	{ MODKEY,                       XK_l,					setmfact,				{.f = +0.05} },
+	{ MODKEY,                       XK_Return,		zoom,						{0} },
+	{ MODKEY,                       XK_Tab,				view,						{0} },
+	{ MODKEY,                       XK_Escape,		killclient,			{0} },
+	{ MODKEY,                       XK_t,					setlayout,			{.v = &layouts[0]} },
+	{ MODKEY,                       XK_f,					setlayout,			{.v = &layouts[1]} },
+	{ MODKEY,                       XK_m,					setlayout,			{.v = &layouts[2]} },
+	{ MODKEY,                       XK_space,			setlayout,			{0} },
+	{ MODKEY|ShiftMask,             XK_space,			togglefloating,	{0} },
+	{ MODKEY,                       XK_0,					view,						{.ui = ~0 } },
+	{ MODKEY|ShiftMask,             XK_0,					tag,						{.ui = ~0 } },
+	{ MODKEY,                       XK_comma,			focusmon,				{.i = -1 } },
+	{ MODKEY,                       XK_period,		focusmon,				{.i = +1 } },
+	{ MODKEY|ShiftMask,             XK_comma,			tagmon,					{.i = -1 } },
+	{ MODKEY|ShiftMask,             XK_period,		tagmon,					{.i = +1 } },
+
+	// Patch: cycle
+	{ MODKEY,												XK_Left,			cycle,					{.i = -1 } },
+	{ MODKEY,												XK_Right,			cycle,					{.i = +1 } },
+	{ MODKEY|ControlMask,						XK_Left,			tagcycle,				{.i = -1 } },
+	{ MODKEY|ControlMask,						XK_Right,			tagcycle,				{.i = +1 } },
+
 	TAGKEYS(                        XK_1,													0)
 	TAGKEYS(                        XK_2,													1)
 	TAGKEYS(                        XK_3,													2)
