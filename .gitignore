@@ -11,6 +11,9 @@
 *.so.*
 *.dylib
 
+# Packages
+*.tar.xz
+
 # Executables
 *.exe
 *.out
