@@ -32,39 +32,40 @@ static const Bool showbar           = True;     /* False means no bar */
 static const Bool topbar            = True;     /* False means bottom bar */
 
 static const Layout layouts[] = {
-	/* symbol     arrange function */
-	{ "[]=",      tile },    /* first entry is default */
-	{ "><>",      NULL },    /* no layout function means floating behavior */
-	{ "[M]",      monocle },
-	{ "[G]",      gaplessgrid },
-	{ "[B]",      bstack },
-};
+					/* symbol     arrange function */
+	/* 0 */	{ "[]=",      tile },    /* first entry is default */
+	/* 1 */	{ "><>",      NULL },    /* no layout function means floating behavior */
+	/* 2 */	{ "[M]",      monocle },
+	/* 3 */	{ "[G]",      gaplessgrid },
+	/* 4 */	{ "[B]",      bstack },
+};  	
 
 /* tagging */
 //static const char *tags[] = { "term", "code", "web", "IM", "Gaming", "aux", "aux", "Media", "float" };
 static const Tag tags[] = {
-	//name			layout				mfact nmaster
-	{ "term",		&layouts[4],	-1,		-1 },
-	{ "code",		&layouts[4],	-1,		-1 },
-	{ "web",		&layouts[1],	-1,		-1 },
-	{ "IM",			&layouts[4],	-1,		-1 },
-	{ "gaming", &layouts[1],	-1,		-1 },
-	{ "aux",		&layouts[4],	-1,		-1 },
-	{ "media",	&layouts[1],	-1,		-1 },
-	{ "float",	&layouts[2],	-1,		-1 },
+	//name			layout					mfact			nmaster
+	{ "term",		&layouts[0],		-1,				-1 },
+	{ "code",		&layouts[0],		 0.33,		-1 },
+	{ "web",		&layouts[2],		-1,				-1 },
+	{ "IM",			&layouts[0],		0.60,			-1 },
+	{ "gaming", &layouts[2],		-1,				-1 },
+	{ "aux",		&layouts[2],		-1,				-1 },
+	{ "media",	&layouts[2],		-1,				-1 },
+	{ "float",	&layouts[1],		-1,				-1 },
 };
 
 static const Rule rules[] = {
 	//class						instance			title				tags mask		isfloating	iscentred		monitor
 	{ "Gimp",					NULL,					NULL,				0,					True,				False,			-1 },
-	{ "MPlayer",			NULL,					NULL,				0,					True,				True,				-1 },
-	{ "mplayer2",			NULL,					NULL,				0,					True,				True,				-1 },
-	{ "Vlc",					NULL,					NULL,				0,					True,				True,				-1 },
+	{ NULL,						"ranger", 		NULL,				1 << 6,			False,			False,			-1 },
+	{ "MPlayer",			NULL,					NULL,				1 << 6,			False,			True,				-1 },
+	{ "mplayer2",			NULL,					NULL,				1 << 6,			False,			True,				-1 },
+	{ "Vlc",					NULL,					NULL,				1 << 6,			True,				True,				-1 },
 	{ "XFontSel",			NULL,					NULL,				0,					True,				True,				-1 },
 	{ "Chromium",			NULL,					NULL,				1 << 2,			False,			False,			-1 },
 	{ "Firefox",			NULL,					NULL,				1 << 2,			True,				True,				-1 },
 	{ "Firefox",			"Navigator",	NULL,				1 << 2,			False,			False,			-1 },
-	//{ "Emacs",			"emacs",			NULL,				1 << 1,			False,			False,			-1 },
+	{ "Emacs",	  		"emacs",			NULL,				1 << 1,			False,			False,			-1 },
 	{ "Emacs",				"_Remember_",	NULL,				0,					True,				True,				-1 },
 	{ "Anki",					NULL,					NULL,				0,					True,				True,				-1 },
 	{ NULL,						"weechat",		NULL,				1 << 3,			False,			False,			-1 },
@@ -78,7 +79,7 @@ static const Rule rules[] = {
 /* layout(s) */
 static const float mfact      = 0.55; /* factor of master area size [0.05..0.95] */
 static const int nmaster      = 1;    /* number of clients in master area */
-static const Bool resizehints = True; /* True means respect size hints in tiled resizals */
+static const Bool resizehints = False; /* True means respect size hints in tiled resizals */
 
 /* key definitions */
 #define MODKEY Mod4Mask
