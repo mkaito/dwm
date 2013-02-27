@@ -204,6 +204,7 @@ static void focus(Client *c);
 static void focusin(XEvent *e);
 static void focusmon(const Arg *arg);
 static void focusstack(const Arg *arg);
+static void focusurgent(const Arg *arg);
 static unsigned long getcolor(const char *colstr);
 static Bool getrootptr(int *x, int *y);
 static long getstate(Window w);
@@ -1031,6 +1032,26 @@ focusstack(const Arg *arg) {
 	if(c) {
 		focus(c);
 		restack(selmon);
+	}
+}
+
+void
+focusurgent(const Arg *arg) {
+	Client *c;
+	Monitor *m;
+	for(m = mons; m; m = m->next) {
+		for(c = m->cl->clients; c; c = c->next) {
+			if(c->isurgent) {
+				selmon = m;
+				if(!ISVISIBLE(c, m)) {
+					selmon->seltags ^= 1;
+					selmon->tagset[selmon->seltags] = c->tags;
+				}
+				focus(c);
+				arrange(selmon);
+				return;
+			}
+		}
 	}
 }
 
