@@ -55,7 +55,7 @@
 #define HEIGHT(X)               ((X)->h + 2 * (X)->bw)
 #define TAGMASK                 ((1 << LENGTH(tags)) - 1)
 #define TEXTW(X)                (textnw(X, strlen(X)) + dc.font.height)
-
+#define ISTAGVISIBLE(M, OCC, I) (OCC & 1 << I || M->tagset[M->seltags] & 1 << I)
 /* enums */
 enum { CurNormal, CurResize, CurMove, CurLast };        /* cursor */
 enum { ColBorder, ColFG, ColBG, ColLast };              /* color */
@@ -488,7 +488,7 @@ attachstack(Client *c) {
 
 void
 buttonpress(XEvent *e) {
-	unsigned int i, x, click;
+	unsigned int i, x, click, occ = 0;
 	Arg arg = {0};
 	Client *c;
 	Monitor *m;
@@ -501,10 +501,13 @@ buttonpress(XEvent *e) {
 		selmon = m;
 		focus(NULL);
 	}
+	for(c = selmon->cl->clients; c; c = c->next)
+		occ |= c->tags;
 	if(ev->window == selmon->barwin) {
 		i = x = 0;
 		do
-			x += TEXTW(tags[i].name);
+			if(ISTAGVISIBLE(selmon, occ, i))
+				x += TEXTW(tags[i].name);
 		while(ev->x >= x && ++i < LENGTH(tags));
 		if(i < LENGTH(tags)) {
 			click = ClkTagBar;
@@ -524,7 +527,7 @@ buttonpress(XEvent *e) {
 	for(i = 0; i < LENGTH(buttons); i++)
 		if(click == buttons[i].click && buttons[i].func && buttons[i].button == ev->button
 		&& CLEANMASK(buttons[i].mask) == CLEANMASK(ev->state))
-			buttons[i].func(click == ClkTagBar && buttons[i].arg.i == 0 ? &arg : &buttons[i].arg);
+			buttons[i].func((click == ClkTagBar || click == ClkWinTitle) && buttons[i].arg.i == 0 ? &arg : &buttons[i].arg);
 }
 
 void
@@ -823,13 +826,15 @@ drawbar(Monitor *m) {
 	}
 	dc.x = 0;
 	for(i = 0; i < LENGTH(tags); i++) {
-		dc.w = TEXTW(tags[i].name);
-        col = dc.colors[ (m->tagset[m->seltags] & 1 << i) ?
-        1 : (urg & 1 << i ? 2:0) ];
-        drawtext(tags[i].name, col, True);
-		drawsquare(m == selmon && selmon->sel && selmon->sel->tags & 1 << i,
-		           occ & 1 << i, col);
-		dc.x += dc.w;
+		if (ISTAGVISIBLE(m, occ, i)) {
+			dc.w = TEXTW(tags[i].name);
+			col = dc.colors[ (m->tagset[m->seltags] & 1 << i) ?
+				1 : (urg & 1 << i ? 2:0) ];
+			drawtext(tags[i].name, col, True);
+			drawsquare(m == selmon && selmon->sel && selmon->sel->tags & 1 << i,
+					occ & 1 << i, col);
+			dc.x += dc.w;
+		}
 	}
 	if(m->lt[m->sellt]->arrange == monocle) {
 		for(a = 0, s = 0, c = nexttiled(m->cl->clients, m); c; c = nexttiled(c->next, m), a++)
