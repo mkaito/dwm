@@ -62,3 +62,5 @@ Applied patches
 * Gapless Grid
 * Pertag
 * Status drawn on all monitors
+* Function to focus first found urgent client
+* Hide unused tags in bar (dynamic tags from Subtle)
