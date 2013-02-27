@@ -69,32 +69,34 @@ static const Tag tags[] = {
 	{ "\uE003",	&layouts[0],		 0.33,		-1 },
 	{ "\uE000",	&layouts[2],		-1,				-1 },
 	{ "\uE013",	&layouts[0],		0.60,			-1 },
-	{ "\uE006",	&layouts[2],		-1,				-1 },
+	{ "\uE006",	&layouts[0],		-1,				-1 },
 	{ "\uE007",	&layouts[2],		-1,				-1 },
 	{ "\uE008",	&layouts[2],		-1,				-1 },
 	{ "\uE001",	&layouts[1],		-1,				-1 },
 };
 
 static const Rule rules[] = {
-	//class        , instance     , title , tags mask , isfloating , iscentred , monitor
-	{ "Gimp"       , NULL         , NULL  , 0         , True       , False     , -1 }    ,
-	{ NULL         , "ranger"     , NULL  , 1 << 6    , False      , False     , -1 }    ,
-	{ "MPlayer"    , NULL         , NULL  , 1 << 6    , False      , True      , -1 }    ,
-	{ "mplayer2"   , NULL         , NULL  , 1 << 6    , False      , True      , -1 }    ,
-	{ "Vlc"        , NULL         , NULL  , 1 << 6    , True       , True      , -1 }    ,
-	{ "XFontSel"   , NULL         , NULL  , 0         , True       , True      , -1 }    ,
-	{ "Chromium"   , NULL         , NULL  , 1 << 2    , False      , False     , -1 }    ,
-	{ "Firefox"    , NULL         , NULL  , 1 << 2    , True       , True      , -1 }    ,
-	{ "Firefox"    , "Navigator"  , NULL  , 1 << 2    , False      , False     , -1 }    ,
-	{ "Emacs"      , "emacs"      , NULL  , 1 << 1    , False      , False     , -1 }    ,
-	{ "Emacs"      , "_Remember_" , NULL  , 0         , True       , True      , -1 }    ,
-	{ "Anki"       , NULL         , NULL  , 0         , True       , True      , -1 }    ,
-	{ NULL         , "weechat"    , NULL  , 1 << 3    , False      , False     , -1 }    ,
-	{ NULL         , "mail"       , NULL  , 1 << 3    , False      , False     , -1 }    ,
-	{ NULL         , "mixer"      , NULL  , 0         , True       , True      , -1 }    ,
-	{ NULL         , "music"      , NULL  , 0         , True       , True      , -1 }    ,
-	{ "Galculator" , NULL         , NULL  , 0         , True       , True      , -1 }    ,
-	{ "Xmessage"   , "xmessage"   , NULL  , 0         , True       , True      , -1 }    ,
+	//class            , instance      , title , tags mask , isfloating , iscentred , monitor
+	{ "Gimp"           , NULL          , NULL  , 0         , True       , False     , -1 }    ,
+	{ NULL             , "ranger"      , NULL  , 1 << 6    , False      , False     , -1 }    ,
+	{ "MPlayer"        , NULL          , NULL  , 1 << 6    , False      , True      , -1 }    ,
+	{ "mplayer2"       , NULL          , NULL  , 1 << 6    , False      , True      , -1 }    ,
+	{ "Vlc"            , NULL          , NULL  , 1 << 6    , True       , True      , -1 }    ,
+	{ "XFontSel"       , NULL          , NULL  , 0         , True       , True      , -1 }    ,
+	{ "Pinentry-gtk-2" , NULL          , NULL  , 0         , True       , True      , -1 }    ,
+	{ "Chromium"       , NULL          , NULL  , 1 << 2    , False      , False     , -1 }    ,
+	{ "Firefox"        , NULL          , NULL  , 1 << 2    , True       , True      , -1 }    ,
+	{ "Firefox"        , "Navigator"   , NULL  , 1 << 2    , False      , False     , -1 }    ,
+	{ "Emacs"          , "emacs"       , NULL  , 1 << 1    , False      , False     , -1 }    ,
+	{ "Emacs"          , "_Remember_"  , NULL  , 0         , True       , True      , -1 }    ,
+	{ "Anki"           , NULL          , NULL  , 0         , True       , True      , -1 }    ,
+	{ NULL             , "weechat"     , NULL  , 1 << 3    , False      , False     , -1 }    ,
+	{ NULL             , "mail"        , NULL  , 1 << 3    , False      , False     , -1 }    ,
+	{ NULL             , "mixer"       , NULL  , 0         , True       , True      , -1 }    ,
+	{ NULL             , "music"       , NULL  , 0         , True       , True      , -1 }    ,
+	{ "Galculator"     , NULL          , NULL  , 0         , True       , True      , -1 }    ,
+	{ "Xmessage"       , "xmessage"    , NULL  , 0         , True       , True      , -1 }    ,
+	{ "Wine"           , "ExeFile.exe" , NULL  , 1 << 4    , False      , False     , -1 }    ,
 };
 
 /* layout(s) */
@@ -112,18 +114,18 @@ static const Bool resizehints = False; /* True means respect size hints in tiled
 
 // Commands
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
-static const char terminal[] = "termite";
+static const char terminal[] = "urxvtc";
 
 static const char *dmenucmd[]      = { "dmenu_run", "-fn", font, "-nb", colors[0][ColBG], "-nf", colors[0][ColFG], "-sb", colors[1][ColBG], "-sf", colors[1][ColFG], NULL };
 static const char *termcmd[]       = { terminal, NULL };
-static const char *musiccmd[]      = { terminal, "--name=music", "-e", "ncmpcpp", NULL };
-static const char *filemancmd[]    = { terminal, "--name=ranger", "-e", "ranger", NULL };
+static const char *musiccmd[]      = { terminal, "-name", "music", "-e", "ncmpcpp", NULL };
+static const char *filemancmd[]    = { terminal, "-name", "ranger", "-e", "ranger", NULL };
 static const char *browsercmd[]    = { "/bin/sh", "-c", "GTK2_RC_FILES = /usr/share/themes/Aurora/gtk-2.0/gtkrc firefox", NULL };
-static const char *imcmd[]         = { terminal, "--name=weechat", "-e", "weechat-curses", NULL };
+static const char *imcmd[]         = { terminal, "-name", "weechat", "-e", "weechat-curses", NULL };
 static const char *emacscmd[]      = { "emacsclient", "-c", "-n", NULL };
 static const char *remembercmd[]   = { "emacsclient", "--eval", "(make-remember-frame)", NULL };
-static const char *mailcmd[]       = { terminal, "--name=mail", "-e", "mutt", NULL };
-static const char *mixercmd[]      = { terminal, "--name=mixer", "-e", "alsamixer", NULL };
+static const char *mailcmd[]       = { terminal, "-name", "mail", "-e", "mutt", NULL };
+static const char *mixercmd[]      = { terminal, "-name", "mixer", "-e", "alsamixer", NULL };
 static const char *volmcmd[]       = { "amixer", "-q", "sset", "Master", "toggle", NULL };
 static const char *voldcmd[]       = { "amixer", "-q", "sset", "Master", "5-", "unmute", NULL };
 static const char *volucmd[]       = { "amixer", "-q", "sset", "Master", "5+", "unmute", NULL };
@@ -166,6 +168,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_v,					togglebar,			{0} },
 	{ MODKEY,                       XK_j,					focusstack,			{.i = +1 } },
 	{ MODKEY,                       XK_k,					focusstack,			{.i = -1 } },
+	{ Mod1Mask,                     XK_Tab,				focusstack,			{.i = -1 } },
 
 	// patch: push
 	{ MODKEY|ShiftMask,							XK_j,					pushdown,				{0} },
