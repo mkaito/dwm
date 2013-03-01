@@ -52,7 +52,9 @@ and (re)compiling the source code.
 
 Applied patches
 ---------------
-* Single Patch Set
+Most, if not all, of these are taken from elsewhere. The single tag set modification breaks most other patches, so I have to manually patch everything, often rewriting patches from scratch, but the original idea and code still come from other people.
+
+* Single Tag Set
 * Status Colors
 * Status bar padding removed
 * Monocle Count
@@ -62,5 +64,5 @@ Applied patches
 * Gapless Grid
 * Pertag
 * Status drawn on all monitors
-* Function to focus first found urgent client
+* Function to focus first found urgent client (needs to be fixed because of single tag set patch)
 * Hide unused tags in bar (dynamic tags from Subtle)
