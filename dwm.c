@@ -100,7 +100,7 @@ struct Client {
 
 typedef struct {
 	int x, y, w, h;
-    unsigned long colors[MAXCOLORS][ColLast];
+	unsigned long colors[MAXCOLORS][ColLast];
 	Drawable drawable;
 	GC gc;
 	struct {
@@ -831,8 +831,8 @@ drawbar(Monitor *m) {
 			col = dc.colors[ (m->tagset[m->seltags] & 1 << i) ?
 				1 : (urg & 1 << i ? 2:0) ];
 			drawtext(tags[i].name, col, True);
-			drawsquare(m == selmon && selmon->sel && selmon->sel->tags & 1 << i,
-					occ & 1 << i, col);
+			//drawsquare(m == selmon && selmon->sel && selmon->sel->tags & 1 << i,
+			//		occ & 1 << i, col);
 			dc.x += dc.w;
 		}
 	}
@@ -858,9 +858,10 @@ drawbar(Monitor *m) {
 	if((dc.w = dc.x - x) > bh) {
 		dc.x = x;
 		if(m->sel) {
-        col = dc.colors[ m == selmon ? 1 : 0 ];
+        //col = dc.colors[ m == selmon ? 1 : 0 ];
+				col = dc.colors[0];
         drawtext(m->sel->name, col, True);
-        drawsquare(m->sel->isfixed, m->sel->isfloating, col);
+        //drawsquare(m->sel->isfixed, m->sel->isfloating, col);
 		}
 		else
 			drawtext(NULL, dc.colors[0], False);
